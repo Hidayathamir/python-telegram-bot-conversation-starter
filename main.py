@@ -6,7 +6,6 @@ from os import environ
 
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
-from telegram.utils.helpers import encode_conversations_to_json
 
 # Enable logging
 logging.basicConfig(
@@ -36,6 +35,12 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(msg)
 
 
+def about(update: Update, context: CallbackContext) -> None:
+    msg = "This project is created by [HidayatHamir](https://github.com/Hidayathamir)\n" + "My Social Media in [Here](https://github.com/Hidayathamir#%EF%B8%8F-lets-connect)\n" + \
+        "You can see this project in [Here](https://github.com/Hidayathamir/python-telegram-bot-conversation-starter)"
+    update.message.reply_markdown_v2(msg)
+
+
 def main() -> None:
     """Start the bot."""
     logger.info('run main')
@@ -52,6 +57,7 @@ def main() -> None:
 
     # Commands
     dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("about", about))
 
     # Start the Bot
     updater.start_webhook(
